@@ -74,6 +74,34 @@ try:
     #program grabs all links on selected page. Opens them, saves the page to pdf.
     #stores all pdfs in a folder (maintaining order)
     #after all pdfs are processed, combines them together in the appropriate order.
+
+    content_links = driver.find_elements(By.CSS_SELECTOR, ".entry-content a, .course-content-list a")
+    
+    urls_to_visit = []
+
+    for link in content_links:
+        url = link.get_attribute("href")
+        if url and "http" in url:  # Ensure it's a valid link
+            urls_to_visit.append(url)
+
+    print(f"Found {len(urls_to_visit)} links to process...")
+
+    for index, target_url in enumerate(urls_to_visit):
+        print(f"Visiting ({index + 1}/{len(urls_to_visit)}): {target_url}")
+    
+    # Navigate to the link
+    driver.get(target_url)
+    
+    # --- YOUR PROCESSING CODE GOES HERE ---
+    # Example: wait for content to load
+    time.sleep(2) 
+    # Example: print page title
+    print(f"  Loaded: {driver.title}")
+    # ---------------------------------------
+
+    # Since we are using a list of URLs, we don't need to 'go back' 
+    # unless the site structure requires a specific flow.
+
     hold = input("Press enter to close ")
 
 finally:
