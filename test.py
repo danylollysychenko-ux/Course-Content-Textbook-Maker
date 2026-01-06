@@ -55,13 +55,13 @@ try:
     # wait = WebDriverWait(driver, 5)
     menu_items = driver.find_elements(By.CSS_SELECTOR, ".menu-item")
     sub_menu_items = driver.find_elements(By.CSS_SELECTOR, ".sub-menu .menu-item")
-    for item in menu_items:
-        print(item.text)
+    # for item in menu_items:
+    #     print(item.text)
     
     for item in sub_menu_items:
         print(item.text)
 
-    links = driver.find_elements(By.CSS_SELECTOR, "a")
+    links = driver.find_elements(By.CSS_SELECTOR, ".sub-menu .menu-item a")
     hrefs = [l.get_attribute("href") for l in links if l.get_attribute("href")]
 
     for url in hrefs:
