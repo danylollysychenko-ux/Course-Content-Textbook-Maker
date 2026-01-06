@@ -61,13 +61,19 @@ try:
     for item in sub_menu_items:
         print(item.text)
 
-    links = driver.find_elements(By.CSS_SELECTOR, ".sub-menu .menu-item a")
-    hrefs = [l.get_attribute("href") for l in links if l.get_attribute("href")]
+    links = driver.find_elements(By.CSS_SELECTOR, ".menu-item a")
+    elements = [{"url": l.get_attribute("href"), "text": l.get_attribute("text")} for l in links if l.get_attribute("href")]
 
-    for url in hrefs:
-        driver.get(url)
-        print(f"Visited: {url}")
-        time.sleep(1)
+    for idx, elem in enumerate(elements):
+        #driver.get(elem["url"])
+        print(f"{idx}:  {elem["text"]} : {elem["url"]}")
+    
+    choice = input("Enter the index of the page to process: ")
+    driver.get(elements[int(choice)]["url"])
+
+    #program grabs all links on selected page. Opens them, saves the page to pdf.
+    #stores all pdfs in a folder (maintaining order)
+    #after all pdfs are processed, combines them together in the appropriate order.
     hold = input("Press enter to close ")
 
 finally:
