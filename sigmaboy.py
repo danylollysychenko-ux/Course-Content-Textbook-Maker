@@ -5,12 +5,15 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from printerdemo import save_page_as_pdf
 import time
+import os
+
+def sanitize(str):
+    """Accepts a string and removes any non-standard characters for file systems"""
+    return str
 
 # 1. Initialize the WebDriver (e.g., Chrome)
 # Ensure the path to your chromedriver executable is correct
 driver = webdriver.Chrome()
-def func():
-    save_page_as_pdf
 
 try:
     # 2. Navigate to a website
@@ -42,7 +45,7 @@ try:
     )
     element.send_keys("Ects0719")
 
-    input()
+    #input()
     element = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, "#idSIButton9"))
     )
@@ -73,6 +76,7 @@ try:
     
     choice = input("Enter the index of the page to process: ")
     driver.get(elements[int(choice)]["url"])
+    folder = elements[int(choice)]["text"]
 
     #program grabs all links on selected page. Opens them, saves the page to pdf.
     #stores all pdfs in a folder (maintaining order)
@@ -88,7 +92,9 @@ try:
     #         urls_to_visit.append(url)
 
     print(f"Found {len(urls_to_visit)} links to process...")
-
+    folder_path = f"output/{folder}"
+    if not os.path.exists(folder_path):
+        os.makedirs(folder_path)
     for index, target_url in enumerate(urls_to_visit):
         print(f"Visiting ({index + 1}/{len(urls_to_visit)}): {target_url}")
     
@@ -100,7 +106,8 @@ try:
         time.sleep(2) 
         # Example: print page title
         print(f"  Loaded: {driver.title}")
-        func()
+        save_page_as_pdf(driver, target_url, f"{folder_path}/{str(index).rjust(3,"0")}_{sanitize(driver.title)}.pdf")
+
         # ---------------------------------------
 
         # Since we are using a list of URLs, we don't need to 'go back' 
@@ -112,3 +119,10 @@ finally:
     # 7. Close the browser
     driver.quit()
     print("Browser closed.")
+
+
+#ToDo:
+#Sanitize
+#combine pdfs - put in folder - output/coursename/combined
+#output/coursename/individual
+#output/coursename/coursename.pdf
