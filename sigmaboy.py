@@ -4,11 +4,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from printerdemo import save_page_as_pdf
+import re
 import time
 import os
 
 def sanitize(str):
     """Accepts a string and removes any non-standard characters for file systems"""
+    pattern = r'[^a-zA-Z0-9]'
+    str = re.sub(pattern, ' ', driver.title)
     return str
 
 # 1. Initialize the WebDriver (e.g., Chrome)
