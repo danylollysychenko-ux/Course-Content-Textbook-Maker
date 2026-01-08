@@ -9,8 +9,7 @@ import re
 import time
 import os
 
-TESTING = True
-TESTCOUNT = 1
+
 
 
 def big_boy_pdf():
@@ -127,8 +126,6 @@ try:
         os.makedirs(folder_path)
     print(folder_path)
     for index, target_url in enumerate(urls_to_visit):
-        if TESTING and index > TESTCOUNT:
-            break
         print(f"Visiting ({index + 1}/{len(urls_to_visit)}): {target_url}")
 
         # Navigate to the link
