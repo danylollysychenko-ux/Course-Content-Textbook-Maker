@@ -4,9 +4,20 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from printerdemo import save_page_as_pdf
+from pypdf import PdfWriter
 import re
 import time
 import os
+
+
+def big_boy_pdf():
+    merger = PdfWriter()
+    for pdf in folder_path:
+        merger.append(pdf)
+    with open(f"{folder_path}/individual", "wb") as fout:
+        merger.write(fout)
+
+    merger.close()
 
 def sanitize(str):
     """Accepts a string and removes any non-standard characters for file systems"""
@@ -98,6 +109,9 @@ try:
     folder_path = f"output/{folder}"
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
+    if not os.path.exists(f"{folder_path}/individual"):
+        os.makedirs(f"{folder_path}/individual")
+    print(folder_path)
     for index, target_url in enumerate(urls_to_visit):
         print(f"Visiting ({index + 1}/{len(urls_to_visit)}): {target_url}")
     
@@ -116,7 +130,11 @@ try:
         # Since we are using a list of URLs, we don't need to 'go back' 
         # unless the site structure requires a specific flow.
 
+    big_boy_pdf()
+
     hold = input("Press enter to close ")
+
+
 
 finally:
     # 7. Close the browser
