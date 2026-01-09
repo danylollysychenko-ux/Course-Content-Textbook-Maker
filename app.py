@@ -12,7 +12,7 @@ import os
 
 
 
-def big_boy_pdf():
+def pdf_combiner():
     #name the file the course name + "combined"
     #if the file exists here, delete it first before merging.
     #AND save combined one level up (not in individual)
