@@ -36,7 +36,7 @@ def sanitize(str):
     str = re.sub(pattern, ' ', driver.title)
     return str
 
-#seee
+#seeee
 # 1. Initialize the WebDriver (e.g., Chrome)
 # Ensure the path to your chromedriver executable is correct
 driver = webdriver.Chrome()
