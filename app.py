@@ -9,10 +9,6 @@ import re
 import time
 import os
 
-TESTING = True
-TESTCOUNT = 1
-
-
 def big_boy_pdf():
     #name the file the course name + "combined"
     #if the file exists here, delete it first before merging.
@@ -126,8 +122,6 @@ try:
         os.makedirs(folder_path)
     print(folder_path)
     for index, target_url in enumerate(urls_to_visit):
-        if TESTING and index > TESTCOUNT:
-            break
         print(f"Visiting ({index + 1}/{len(urls_to_visit)}): {target_url}")
 
         # Navigate to the link
@@ -158,7 +152,7 @@ finally:
 
 
 # ToDo:
-# Sanitize
+# Sanitize - done
 # combine pdfs - put in folder - output/coursename/combined
 # output/coursename/individual
 # output/coursename/coursename.pdf
